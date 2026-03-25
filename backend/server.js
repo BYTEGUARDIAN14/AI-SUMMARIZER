@@ -49,7 +49,7 @@ const parseDOCX = async (filePath) => {
 // Summary Logic
 const generateSummary = async (text) => {
   if (!text || text.trim().length === 0) return "No text extracted.";
-  
+
   const prompt = `Summarize the following document in a concise way using bullet points:\n\n${text}`;
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
@@ -67,9 +67,9 @@ app.post('/api/summarize', upload.single('file'), async (req, res) => {
 
     const filePath = req.file.path;
     const fileExtension = path.extname(req.file.originalname).toLowerCase();
-    
+
     let extractedText = '';
-    
+
     if (fileExtension === '.pdf') {
       extractedText = await parsePDF(filePath);
     } else if (fileExtension === '.docx') {
@@ -90,7 +90,7 @@ app.post('/api/summarize', upload.single('file'), async (req, res) => {
 
   } catch (error) {
     console.error('Error during summarization:', error);
-    
+
     let errorMessage = 'Internal Server Error';
     let statusCode = 500;
 
